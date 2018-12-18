@@ -4,7 +4,7 @@ if [[ "$JUPYTERHUB_USER" == course_* ]]; then
   jupyter nbextension enable --user create_assignment/main
   jupyter nbextension enable --user formgrader/main --section=tree
   jupyter serverextension enable --user nbgrader.server_extensions.formgrader
-  cat << EOF >> /home/jovyan/.jupyter/nbgrader_config.py
+  cat << EOF >> "/home/$JUPYTERHUB_USER/.jupyter/nbgrader_config.py"
 import os
 c = get_config()
 c.Exchange.course_id = os.environ['JUPYTERHUB_USER'].split('_')[-1].upper()
