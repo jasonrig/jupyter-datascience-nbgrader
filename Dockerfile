@@ -14,6 +14,8 @@ RUN jupyter nbextension disable --sys-prefix create_assignment/main
 RUN jupyter nbextension disable --sys-prefix formgrader/main --section=tree
 RUN jupyter serverextension disable --sys-prefix nbgrader.server_extensions.formgrader
 
-CMD ["setup-and-run.sh"]
+COPY enable-instructor-tools.sh /usr/local/bin/
 
-COPY setup-and-run.sh /usr/local/bin/
+USER root
+RUN chmod 555 /usr/local/bin/enable-instructor-tools.sh
+USER $NB_UID
