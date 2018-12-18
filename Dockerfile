@@ -6,6 +6,10 @@ LABEL maintainer="Jason Rigby <hello@jasonrig.by>"
 USER $NB_UID
 
 RUN conda install --quiet --yes -c conda-forge nbgrader
+RUN conda install --quiet --yes \
+    'r-testthat=2.0*' && \
+    conda clean -tipsy && \
+    fix-permissions $CONDA_DIR
 
 RUN jupyter nbextension install --sys-prefix --py nbgrader --overwrite
 RUN jupyter nbextension enable --sys-prefix --py nbgrader
