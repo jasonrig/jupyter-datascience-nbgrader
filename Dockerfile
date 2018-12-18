@@ -15,7 +15,9 @@ RUN jupyter nbextension disable --sys-prefix formgrader/main --section=tree
 RUN jupyter serverextension disable --sys-prefix nbgrader.server_extensions.formgrader
 
 COPY enable-instructor-tools.sh /usr/local/bin/
+COPY set-user-start-notebook.sh /usr/local/bin/
 
 USER root
 RUN chmod 555 /usr/local/bin/enable-instructor-tools.sh
+RUN chmod 555 /usr/local/bin/set-user-start-notebook.sh
 USER $NB_UID
