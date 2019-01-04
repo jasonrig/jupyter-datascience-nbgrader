@@ -20,6 +20,7 @@ RUN jupyter serverextension disable --sys-prefix nbgrader.server_extensions.form
 
 COPY enable-instructor-tools.sh /usr/local/bin/
 COPY set-user-start-notebook.sh /usr/local/bin/
+COPY start.sh /usr/local/bin/
 
 USER root
 
@@ -35,7 +36,6 @@ RUN apt-get clean && \
 
 ENV RSTUDIO_PKG=rstudio-server-1.1.463-amd64.deb
 ENV PATH="${PATH}:/usr/lib/rstudio-server/bin"
-ENV LD_LIBRARY_PATH="/usr/lib/x86_64-linux-gnu:/opt/conda/lib/R/lib"
 
 RUN wget -q https://download2.rstudio.org/${RSTUDIO_PKG}
 RUN dpkg -i ${RSTUDIO_PKG}
