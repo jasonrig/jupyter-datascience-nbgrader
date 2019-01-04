@@ -23,6 +23,16 @@ COPY set-user-start-notebook.sh /usr/local/bin/
 
 USER root
 
+RUN apt-get update && \
+	apt-get install -y --no-install-recommends \
+		libapparmor1 \
+		libedit2 \
+		lsb-release \
+		psmisc \
+		libssl1.0.0
+RUN apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
 ENV RSTUDIO_PKG=rstudio-server-1.1.463-amd64.deb
 RUN wget -q https://download2.rstudio.org/${RSTUDIO_PKG}
 RUN dpkg -i ${RSTUDIO_PKG}
