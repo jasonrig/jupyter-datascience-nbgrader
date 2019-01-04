@@ -44,3 +44,4 @@ USER $NB_UID
 
 RUN pip install git+https://github.com/jupyterhub/jupyter-rsession-proxy
 ENV PATH="${PATH}:/usr/lib/rstudio-server/bin"
+ENV LD_LIBRARY_PATH="/usr/lib/R/lib:/lib:/usr/lib/x86_64-linux-gnu:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64/server:/opt/conda/lib/R/lib"
