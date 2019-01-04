@@ -34,6 +34,9 @@ RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 ENV RSTUDIO_PKG=rstudio-server-1.1.463-amd64.deb
+ENV PATH="${PATH}:/usr/lib/rstudio-server/bin"
+ENV LD_LIBRARY_PATH="/usr/lib/x86_64-linux-gnu:/opt/conda/lib/R/lib"
+
 RUN wget -q https://download2.rstudio.org/${RSTUDIO_PKG}
 RUN dpkg -i ${RSTUDIO_PKG}
 RUN rm ${RSTUDIO_PKG}
@@ -43,5 +46,3 @@ RUN chmod 555 /usr/local/bin/set-user-start-notebook.sh
 USER $NB_UID
 
 RUN pip install git+https://github.com/jupyterhub/jupyter-rsession-proxy
-ENV PATH="${PATH}:/usr/lib/rstudio-server/bin"
-ENV LD_LIBRARY_PATH="/usr/lib/R/lib:/lib:/usr/lib/x86_64-linux-gnu:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64/server:/opt/conda/lib/R/lib"
