@@ -22,6 +22,15 @@ COPY enable-instructor-tools.sh /usr/local/bin/
 COPY set-user-start-notebook.sh /usr/local/bin/
 
 USER root
+
+ENV RSTUDIO_PKG=rstudio-server-1.1.463-amd64.deb
+RUN wget -q https://download2.rstudio.org/${RSTUDIO_PKG}
+RUN dpkg -i ${RSTUDIO_PKG}
+RUN rm ${RSTUDIO_PKG}
+
 RUN chmod 555 /usr/local/bin/enable-instructor-tools.sh
 RUN chmod 555 /usr/local/bin/set-user-start-notebook.sh
 USER $NB_UID
+
+RUN pip install git+https://github.com/jupyterhub/jupyter-rsession-proxy
+ENV PATH="${PATH}:/usr/lib/rstudio-server/bin"
