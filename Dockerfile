@@ -31,7 +31,8 @@ RUN apt-get update && \
 		libedit2 \
 		lsb-release \
 		psmisc \
-		libssl1.0.0
+		libssl1.0.0 \
+		libclang-dev
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
