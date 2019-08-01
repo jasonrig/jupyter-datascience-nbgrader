@@ -18,6 +18,7 @@ RUN jupyter nbextension disable --sys-prefix create_assignment/main
 RUN jupyter nbextension disable --sys-prefix formgrader/main --section=tree
 RUN jupyter serverextension disable --sys-prefix nbgrader.server_extensions.formgrader
 
+COPY set-terminal-prompt.sh /etc/profile.d/
 COPY enable-instructor-tools.sh /usr/local/bin/
 COPY set-user-start-notebook.sh /usr/local/bin/
 COPY start.sh /usr/local/bin/
@@ -34,16 +35,17 @@ RUN apt-get update && \
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-ENV RSTUDIO_PKG=rstudio-server-1.1.463-amd64.deb
+ENV RSTUDIO_PKG=rstudio-server-1.2.1335-amd64.deb
 ENV SHINY_PKG=shiny-server-1.5.9.923-amd64.deb
 ENV PATH="${PATH}:/usr/lib/rstudio-server/bin"
 
-RUN wget -q https://download2.rstudio.org/${RSTUDIO_PKG}
+RUN wget -q https://download2.rstudio.org/server/bionic/amd64/${RSTUDIO_PKG}
 RUN wget -q https://download3.rstudio.org/ubuntu-14.04/x86_64/${SHINY_PKG}
 RUN dpkg -i ${RSTUDIO_PKG}
 RUN dpkg -i ${SHINY_PKG}
 RUN rm ${RSTUDIO_PKG} ${SHINY_PKG}
 
+RUN chmod 555 /etc/profile.d/set-terminal-prompt.sh
 RUN chmod 555 /usr/local/bin/enable-instructor-tools.sh
 RUN chmod 555 /usr/local/bin/set-user-start-notebook.sh
 USER $NB_UID
