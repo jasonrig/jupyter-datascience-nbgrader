@@ -6,7 +6,8 @@ LABEL maintainer="Jason Rigby <hello@jasonrig.by>"
 USER $NB_UID
 
 RUN conda install --quiet --yes -c conda-forge jupyter_contrib_nbextensions
-RUN conda install --quiet --yes -c conda-forge nbgrader
+# https://github.com/apache/incubator-superset/issues/6977#issuecomment-469636503
+RUN conda install --quiet --yes -c conda-forge nbgrader sqlalchemy==1.2.18
 RUN conda install --quiet --yes \
     'r-testthat=2.0*' && \
     conda clean -tipsy && \
@@ -18,9 +19,6 @@ RUN jupyter serverextension enable --sys-prefix --py nbgrader
 RUN jupyter nbextension disable --sys-prefix create_assignment/main
 RUN jupyter nbextension disable --sys-prefix formgrader/main --section=tree
 RUN jupyter serverextension disable --sys-prefix nbgrader.server_extensions.formgrader
-
-# https://github.com/apache/incubator-superset/issues/6977#issuecomment-469636503
-RUN conda install --quiet --yes -c conda-forge sqlalchemy==1.2.18
 
 COPY set-terminal-prompt.sh /etc/profile.d/
 COPY enable-instructor-tools.sh /usr/local/bin/
