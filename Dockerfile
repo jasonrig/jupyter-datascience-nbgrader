@@ -9,7 +9,7 @@ RUN conda install --quiet --yes -c conda-forge jupyter_contrib_nbextensions
 # https://github.com/apache/incubator-superset/issues/6977#issuecomment-469636503
 RUN conda install --quiet --yes -c conda-forge nbgrader sqlalchemy==1.2.18
 RUN conda install --quiet --yes \
-    'r-testthat=2.0*' && \
+    'r-testthat' && \
     conda clean -tipsy && \
     fix-permissions $CONDA_DIR
 
