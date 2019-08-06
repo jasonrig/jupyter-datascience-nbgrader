@@ -19,6 +19,9 @@ RUN jupyter nbextension disable --sys-prefix create_assignment/main
 RUN jupyter nbextension disable --sys-prefix formgrader/main --section=tree
 RUN jupyter serverextension disable --sys-prefix nbgrader.server_extensions.formgrader
 
+# https://github.com/apache/incubator-superset/issues/6977#issuecomment-469636503
+RUN conda install --quiet --yes -c conda-forge sqlalchemy==1.2.18
+
 COPY set-terminal-prompt.sh /etc/profile.d/
 COPY enable-instructor-tools.sh /usr/local/bin/
 COPY set-user-start-notebook.sh /usr/local/bin/
